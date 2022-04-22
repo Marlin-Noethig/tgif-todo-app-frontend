@@ -1,42 +1,31 @@
 import {Todo} from "../model/Todo";
-import TodoEntry from "./TodoEntry";
+import TodoList from "./TodoList";
+import "./TodoBoard.css";
+import {statuses} from "../globals/globals";
+import {useEffect, useState} from "react";
 
 
 type TodoBoardProps = {
-    todos: Todo[] | undefined
+    todos: Todo[]
 }
 
 export default function TodoBoard({todos}: TodoBoardProps) {
 
-    if (todos === undefined) {
-        return <div>
-            No Todos retrieved!
-        </div>
-    }
+    const [filteredTodos, setFilteredTodos] = useState<Todo[][]>([[]])
 
+    const filterTodos = () => statuses.map(status =>{
+       return todos.filter(todo => todo.status === status)
+    })
 
-    const statuses: string[] = ["OPEN", "IN"]
+    useEffect(()=>{
+        setFilteredTodos(filterTodos())
+    },[todos])
 
-    const openTodos = todos.filter(todo => todo.status === "OPEN")
-    const inProgressTodos = todos.filter(todo => todo.status === "IN_PROGRESS")
-    const doneTodos = todos.filter(todo => todo.status === "DONE")
-
+    console.log(filteredTodos)
 
     return (
         <div className={"todo-board"}>
-            <div>
-                OPEN
-                {openTodos.map(todo => <TodoEntry key={todo.id} todo={todo}/>)}
-            </div>
-            <div>
-                IN PROGRESS
-                {inProgressTodos.map(todo => <TodoEntry key={todo.id} todo={todo}/>)}
-            </div>
-            <div>
-                DONE
-                {doneTodos.map(todo => <TodoEntry key={todo.id} todo={todo}/>)}
-            </div>
-
+            {filteredTodos.map(todos => <TodoList todos={todos}/>)}
         </div>
     )
 }

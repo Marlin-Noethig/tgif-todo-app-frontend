@@ -1,12 +1,13 @@
 import {FormEvent, useState} from "react";
 import {Todo} from "../model/Todo";
+import {postTodoByApi} from "../services/TodoApiServices";
 
 
 type CreateTodoProps = {
-    addTodoToApi: (newTodo: Todo) => void
+    addTodo: (newTodo: Todo) => void
 }
 
-export default function CreateTodo({addTodoToApi}: CreateTodoProps){
+export default function CreateTodo({addTodo}: CreateTodoProps){
 
 
     const [newDescription, setNewDescription] = useState<string>("")
@@ -14,8 +15,9 @@ export default function CreateTodo({addTodoToApi}: CreateTodoProps){
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        if (newDescription === ""){
+        if (!newDescription){
             alert("Please fill in a description!")
+            return
         }
 
 
@@ -23,8 +25,11 @@ export default function CreateTodo({addTodoToApi}: CreateTodoProps){
             description: newDescription,
             status: "OPEN"
         }
+
+        postTodoByApi(newTodo)
+            .then(addTodo)
+            .catch(console.error)
         setNewDescription("")
-        addTodoToApi(newTodo)
     }
 
 

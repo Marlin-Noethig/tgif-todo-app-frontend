@@ -1,17 +1,20 @@
 import {useEffect, useState} from "react";
 import {Todo} from "../model/Todo";
-import axios from "axios";
+import {getTodoByApi} from "../services/TodoApiServices";
 
 
 
 export default function useTodos() {
-    const [todos, setTodos] = useState<Todo[]>()
+    const [todos, setTodos] = useState<Todo[]>([])
 
     useEffect(() =>{
-        axios.get("api/todo")
-            .then(response => setTodos(response.data))
-            .catch(console.error)
+       getTodoByApi()
+           .then(data => setTodos(data))
     },[])
 
-    return todos
+    const addTodo = (newTodo: Todo) => {
+        setTodos((allTodos) => [...allTodos, newTodo])
+    }
+    console.log( todos )
+    return {todos, addTodo}
 }

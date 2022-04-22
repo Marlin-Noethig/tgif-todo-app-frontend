@@ -3,25 +3,19 @@ import './App.css';
 
 import useTodos from "./hooks/useTodos";
 import TodoBoard from "./components/TodoBoard";
-import {Todo} from "./model/Todo";
 import CreateTodo from "./components/CreateTodo";
-import axios from "axios";
+import Title from "./components/Title";
 
 
 function App() {
 
-    const  todos: Todo[] | undefined = useTodos()
-
-    const addTodoToApi = (newTodo:Todo) => {
-        axios.post("api/todo", newTodo)
-            .then(response => response.data)
-            .catch(console.error)
-    }
+    const  {todos, addTodo} = useTodos()
 
   return (
     <div className="App">
+        <Title/>
+        <CreateTodo addTodo={addTodo}/>
         <TodoBoard todos={todos} />
-        <CreateTodo addTodoToApi={addTodoToApi} />
     </div>
   );
 }
