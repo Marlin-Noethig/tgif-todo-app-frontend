@@ -3,13 +3,17 @@ import TodoList from "./TodoList";
 import "./TodoBoard.css";
 import {statuses} from "../globals/globals";
 import {useEffect, useState} from "react";
+import ListTitle from "./ListTitle";
 
 
 type TodoBoardProps = {
     todos: Todo[]
+    onUpdate: (todo:Todo) => void
+    onDelete: (id: string ) => void
 }
 
-export default function TodoBoard({todos}: TodoBoardProps) {
+export default function TodoBoard({todos, onUpdate, onDelete}: TodoBoardProps) {
+
 
     const [filteredTodos, setFilteredTodos] = useState<Todo[][]>([[]])
 
@@ -21,11 +25,16 @@ export default function TodoBoard({todos}: TodoBoardProps) {
         setFilteredTodos(filterTodos())
     },[todos])
 
-    console.log(filteredTodos)
-
     return (
         <div className={"todo-board"}>
-            {filteredTodos.map(todos => <TodoList todos={todos}/>)}
+            <div className={"list-title-container"}>
+                {statuses.map(status => <ListTitle status={status}/>)}
+            </div>
+            <div className={"list-container"}>
+                {filteredTodos.map(todos => <TodoList todos={todos}
+                                                      onUpdate={onUpdate}
+                                                      onDelete={onDelete}/>)}
+            </div>
         </div>
     )
 }

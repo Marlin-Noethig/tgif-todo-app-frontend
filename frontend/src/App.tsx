@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import './App.css';
 
 import useTodos from "./hooks/useTodos";
@@ -9,13 +8,17 @@ import Title from "./components/Title";
 
 function App() {
 
-    const  {todos, addTodo} = useTodos()
+    const  {todos, addTodo, updateTodo, deleteTodo} = useTodos()
 
   return (
     <div className="App">
         <Title/>
         <CreateTodo addTodo={addTodo}/>
-        <TodoBoard todos={todos} />
+        <TodoBoard
+            todos={todos}
+            onUpdate={updateTodo}
+            onDelete={deleteTodo}
+        />
     </div>
   );
 }

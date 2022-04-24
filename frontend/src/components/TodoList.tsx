@@ -5,35 +5,18 @@ import "./TodoList.css";
 
 type TodoListProps = {
     todos: Todo[]
+    onUpdate: (todo: Todo) => void
+    onDelete: (id: string) => void
 }
 
-export default function TodoList({todos}: TodoListProps) {
-
-
-    const getStatus = (): string => {
-
-        try {
-            switch (todos[0].status) {
-                case "OPEN":
-                    return "Open"
-                case "IN_PROGRESS":
-                    return "In Progress"
-                case "DONE":
-                    return "Done"
-                default:
-                    return ""
-            }
-        }
-        catch (error){
-            return "Nothing here"
-        }
-    }
-
+export default function TodoList({todos, onUpdate, onDelete}: TodoListProps) {
 
     return (
         <div className={"todo-list"}>
-            <h2>{getStatus()}</h2>
-            {todos.map(todo => <TodoEntry key={todo.id} todo={todo}/>)}
+            {todos.map(todo => <TodoEntry key={todo.id}
+                                          todo={todo}
+                                          onUpdate={onUpdate}
+                                          onDelete={onDelete}/>)}
         </div>
     )
 }

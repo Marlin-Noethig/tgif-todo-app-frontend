@@ -15,6 +15,19 @@ export default function useTodos() {
     const addTodo = (newTodo: Todo) => {
         setTodos((allTodos) => [...allTodos, newTodo])
     }
-    console.log( todos )
-    return {todos, addTodo}
+
+    const updateTodo = (updatedTodo: Todo) => {
+        setTodos(
+            todos.map((item: Todo) => (updatedTodo.id === item.id ? updatedTodo : item))
+        )
+    }
+
+    const deleteTodo = (id: string) => {
+
+        setTodos(
+            todos.filter(todo => todo.id != id)
+        )
+    }
+
+    return {todos, addTodo, updateTodo, deleteTodo}
 }

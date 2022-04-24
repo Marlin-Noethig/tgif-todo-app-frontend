@@ -1,5 +1,17 @@
 .todo-board{
     border: solid;
     display: flex;
+    flex-direction: column;
+}
+
+.list-title-container{
+    display: flex;
     justify-content: space-around;
+    flex-direction: row;
+}
+
+.list-container{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
 }
