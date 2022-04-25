@@ -2,7 +2,7 @@ import {Todo} from "../model/Todo";
 import "./TodoEntry.css"
 import {statuses} from "../globals/globals";
 import {deleteTodoByApi, putTodoByApi} from "../services/TodoApiServices";
-import useTodos from "../hooks/useTodos";
+import {useNavigate} from "react-router-dom";
 
 type TodoEntryProps = {
     todo: Todo
@@ -11,24 +11,23 @@ type TodoEntryProps = {
 }
 
 export default function TodoEntry({todo, onUpdate, onDelete}: TodoEntryProps) {
+    const navigate = useNavigate()
 
-
-    const updateStatus = (newStatus: string): Todo => {
+    const updateStatus = (newStatus: string) => {
         const updatedTodo: Todo = {...todo, status: newStatus}
         putTodoByApi(todo.id, updatedTodo)
-        return updatedTodo
+        onUpdate(updatedTodo)
     }
 
     const increaseStatus = () => {
         const newStatus = statuses[statuses.indexOf(todo.status) + 1]
         updateStatus(newStatus)
-        onUpdate(updateStatus(newStatus))
     }
 
 
     const decreaseStatus = () => {
         const newStatus = statuses[statuses.indexOf(todo.status) - 1]
-        onUpdate(updateStatus(newStatus))
+        updateStatus(newStatus)
     }
 
     const deleteTodo = () => {
@@ -38,12 +37,18 @@ export default function TodoEntry({todo, onUpdate, onDelete}: TodoEntryProps) {
         }
     }
 
+    const navigateDetails = () => {
+
+    }
+
+
     return (
         <div className={"todo-entry"}>
-            <h4>{todo.description}</h4>
-            {todo.status !== "OPEN" ? <button onClick={decreaseStatus}>Recede</button> : null}
-            {todo.status !== "DONE" ? <button onClick={increaseStatus}>Proceed</button> : null}
+            <h4 onClick={navigateDetails}>{todo.description}</h4>
+            {todo.status !== "OPEN" ? <button onClick={decreaseStatus}>{"<< regress"}</button> : null}
+            {todo.status !== "DONE" ? <button onClick={increaseStatus}>{"progress >>"}</button> : null}
             {todo.status === "DONE" ? <button onClick={deleteTodo}>Delete</button> : null}
+
         </div>
     )
 }

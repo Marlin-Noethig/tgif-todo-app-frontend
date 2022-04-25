@@ -14,7 +14,6 @@ type TodoBoardProps = {
 
 export default function TodoBoard({todos, onUpdate, onDelete}: TodoBoardProps) {
 
-
     const [filteredTodos, setFilteredTodos] = useState<Todo[][]>([[]])
 
     const filterTodos = () => statuses.map(status =>{

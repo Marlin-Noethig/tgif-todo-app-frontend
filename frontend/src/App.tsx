@@ -4,6 +4,7 @@ import useTodos from "./hooks/useTodos";
 import TodoBoard from "./components/TodoBoard";
 import CreateTodo from "./components/CreateTodo";
 import Title from "./components/Title";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 
 function App() {
@@ -12,13 +13,19 @@ function App() {
 
   return (
     <div className="App">
-        <Title/>
-        <CreateTodo addTodo={addTodo}/>
-        <TodoBoard
-            todos={todos}
-            onUpdate={updateTodo}
-            onDelete={deleteTodo}
-        />
+        <BrowserRouter>
+            <Title/>
+            <CreateTodo addTodo={addTodo}/>
+
+            <Routes>
+            <Route path={"/"} element={<TodoBoard
+                todos={todos}
+                onUpdate={updateTodo}
+                onDelete={deleteTodo}
+            />}/>
+            </Routes>
+        </BrowserRouter>
+
     </div>
   );
 }
