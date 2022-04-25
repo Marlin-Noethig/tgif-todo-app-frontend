@@ -1,1 +1,0 @@
-export const statuses = ["OPEN", "IN_PROGRESS", "DONE"]

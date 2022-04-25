@@ -1,6 +1,6 @@
 import {Todo} from "../model/Todo";
 import "./TodoEntry.css"
-import {statuses} from "../globals/globals";
+import {StatusConfig} from "../configs/StatusConfig";
 import {deleteTodoByApi, putTodoByApi} from "../services/TodoApiServices";
 import {useNavigate} from "react-router-dom";
 
@@ -20,13 +20,13 @@ export default function TodoEntry({todo, onUpdate, onDelete}: TodoEntryProps) {
     }
 
     const increaseStatus = () => {
-        const newStatus = statuses[statuses.indexOf(todo.status) + 1]
+        const newStatus = StatusConfig.statuses[StatusConfig.statuses.indexOf(todo.status) + 1]
         updateStatus(newStatus)
     }
 
 
     const decreaseStatus = () => {
-        const newStatus = statuses[statuses.indexOf(todo.status) - 1]
+        const newStatus = StatusConfig.statuses[StatusConfig.statuses.indexOf(todo.status) - 1]
         updateStatus(newStatus)
     }
 
@@ -38,7 +38,7 @@ export default function TodoEntry({todo, onUpdate, onDelete}: TodoEntryProps) {
     }
 
     const navigateDetails = () => {
-
+        navigate(`/todo/${todo.id}`)
     }
 
 

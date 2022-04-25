@@ -23,7 +23,6 @@ export default function useTodos() {
     }
 
     const deleteTodo = (id: string) => {
-
         setTodos(
             todos.filter(todo => todo.id != id)
         )

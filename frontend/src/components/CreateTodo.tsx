@@ -1,7 +1,7 @@
 import {FormEvent, useState} from "react";
 import {Todo} from "../model/Todo";
 import {postTodoByApi} from "../services/TodoApiServices";
-
+import "./CreateTodo.css"
 
 type CreateTodoProps = {
     addTodo: (newTodo: Todo) => void
@@ -35,7 +35,7 @@ export default function CreateTodo({addTodo}: CreateTodoProps){
 
 
     return(
-        <div>
+        <div className={"create-todo"}>
             <form onSubmit={handleSubmit}>
                 <label>
                     Add new Todo:
