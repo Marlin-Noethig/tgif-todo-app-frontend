@@ -20,4 +20,4 @@ jobs:
     - name: Build with Maven
       run: |
         cd backend
-        mvn -B package --file tgif-todo-app-frontend/backend/pom.xml
+        mvn -B package --file ../backend/pom.xml
