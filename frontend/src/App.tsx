@@ -2,7 +2,6 @@ import './App.css';
 
 import useTodos from "./hooks/useTodos";
 import TodoBoard from "./pages/TodoBoard";
-import CreateTodo from "./components/CreateTodo";
 import Title from "./components/Title";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import TodoDetail from "./pages/TodoDetail";

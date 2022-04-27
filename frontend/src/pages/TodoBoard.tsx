@@ -18,12 +18,12 @@ export default function TodoBoard({todos, onUpdate, onDelete, addTodo}: TodoBoar
 
     const [filteredTodos, setFilteredTodos] = useState<Todo[][]>([[]])
 
-    const filterTodos = () => StatusConfig.statuses.map(status =>{
-       return todos.filter(todo => todo.status === status)
-    })
+
 
     useEffect(()=>{
-        setFilteredTodos(filterTodos())
+        setFilteredTodos(StatusConfig.statuses.map(status =>{
+            return todos.filter(todo => todo.status === status)
+        }))
     },[todos])
 
     return (
