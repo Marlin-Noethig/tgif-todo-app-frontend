@@ -12,36 +12,34 @@ import java.util.NoSuchElementException;
 public class TodoService {
 
     private final TodoRepo todoRepo;
-    private final IdService idService;
+
 
     @Autowired
-    public TodoService(TodoRepo todoRepo, IdService idService) {
+    public TodoService(TodoRepo todoRepo) {
         this.todoRepo = todoRepo;
-        this.idService = idService;
     }
 
     public List<Todo> getTodos() {
-        return todoRepo.getTodos();
+        return todoRepo.findAll();
     }
 
     public Todo addTodo(Todo todo) {
-        todo.setId(idService.generateId());
-        return todoRepo.addTodo(todo);
+        return todoRepo.insert(todo);
     }
 
     public Todo updateTodo(Todo todo) {
         if(todoRepo.existsById(todo.getId())){
-            return todoRepo.updateTodo(todo);
+            return todoRepo.save(todo);
         } else{
             throw new NoSuchElementException("Could not update Todo element! Element with id does not exist: " + todo.getId());
         }
     }
 
     public void deleteTodo(String id) {
-        todoRepo.deleteTodo(id);
+        todoRepo.deleteById(id);
     }
 
     public Todo getTodo(String id) {
-        return todoRepo.findById(id);
+        return todoRepo.findById(id).orElseThrow(() -> new NoSuchElementException("No Todo with id:" + id +  " available."));
     }
 }
