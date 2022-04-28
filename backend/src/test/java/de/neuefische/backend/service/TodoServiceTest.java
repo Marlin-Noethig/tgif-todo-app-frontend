@@ -12,12 +12,11 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 
-/*
+
 class TodoServiceTest {
 
     TodoRepo todoRepo = mock(TodoRepo.class);
-    IdService idService = mock(IdService.class);
-    TodoService todoService = new TodoService(todoRepo, idService);
+    TodoService todoService = new TodoService(todoRepo);
 
     @Test
     void testUpdateTodo() {
@@ -33,13 +32,12 @@ class TodoServiceTest {
         updatedTodoItem.setStatus("IN PROGRESS");
 
         when(todoRepo.existsById(any())).thenReturn(true);
-        when(todoRepo.updateTodo(any())).thenReturn(updatedTodoItem);
+        when(todoRepo.save(any())).thenReturn(updatedTodoItem);
 
         // WHEN
         Todo actual = todoService.updateTodo(todoToUpdate);
 
         // THEN
-        verify(todoRepo).updateTodo(todoToUpdate);
         assertThat(actual, is(updatedTodoItem));
     }
 
@@ -60,4 +58,4 @@ class TodoServiceTest {
     }
 }
 
- */
+
